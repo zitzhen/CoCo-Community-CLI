@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { exec } from 'child_process';
 import * as readline from 'readline';
+import ora from 'ora';
 
 const lang = (process.env.LANG || 'en_US').split('_')[0];
 
@@ -39,12 +40,16 @@ function error_control_input(lang:string){
 }
 
 function fetch_control(lang:string){
-    return lang === 'zh' ? '正在获取控件...' : 'Fetching control...';
+    if (lang === 'zh'){
+        const spinner = ora('正在处理...').start();
+    }else{
+        const spinner = ora('loading...').start();
+    }
 }
 
 function control(){
     if (process.argv.length > 3){
-        console.log(fetch_control(lang));
+        fetch_control(lang);
     }else{
         console.error(error_control_input(lang));
     }
