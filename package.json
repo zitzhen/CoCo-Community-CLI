@@ -4,10 +4,6 @@
   "bin": {
     "cczit": "dist/index.js"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/zitzhen/CoCo-Community-CLI.git"
