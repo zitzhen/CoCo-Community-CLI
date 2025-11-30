@@ -2,13 +2,14 @@
 import { exec } from 'child_process';
 import * as readline from 'readline';
 
-function welcome() {
-    const lang = (process.env.LANG || 'en_US').split('_')[0];
+const lang = (process.env.LANG || 'en_US').split('_')[0];
+
+function welcome(lang:string) {
+    
     return lang === 'zh' ? '欢迎使用CoCo-Community CLI!' : 'Welcome to the CoCo Community CLI!';
 }
 
-function NotFound(){
-    const lang = (process.env.LANG || 'en_US').split('_')[0];
+function NotFound(lang:string){
     return lang === 'zh' ? '这个命令不存在。' : 'This command does not exist.';
 }
 
@@ -99,9 +100,9 @@ if (process.argv.length > 2) {
     else if (args.includes('ssl')) {
         ssl();
     }else{
-        console.log(NotFound());
+        console.log(NotFound(lang));
     }
 }else{
-    console.log(welcome());
+    console.log(welcome(lang));
 }
 
