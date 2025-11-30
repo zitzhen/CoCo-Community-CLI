@@ -34,6 +34,22 @@ function ssl(){
     });
 }
 
+function error_control_input(lang:string){
+    return lang === 'zh' ? '缺失控件名 \n 请输入控件名，如下命令：\n cczit control [控件名]' : 'Missing control name \n Please enter the control name using the following command: \ncczit control [control name]';
+}
+
+function fetch_control(lang:string){
+    return lang === 'zh' ? '正在获取控件...' : 'Fetching control...';
+}
+
+function control(){
+    if (process.argv.length > 3){
+        console.log(fetch_control(lang));
+    }else{
+        console.error(error_control_input(lang));
+    }
+}
+
 function openGitHubRepo() {
     const repos = [
         { id: 1, name: 'CoCo-Community', url: 'https://github.com/zitzhen/CoCo-Community' },
@@ -99,7 +115,10 @@ if (process.argv.length > 2) {
     }
     else if (args.includes('ssl')) {
         ssl();
-    }else{
+    }else if (args.includes('control')){
+        control();
+    }
+    else{
         console.log(NotFound(lang));
     }
 }else{
