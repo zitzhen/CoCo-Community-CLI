@@ -39,6 +39,20 @@ function error_control_input(lang:string){
     return lang === 'zh' ? '缺失控件名 \n 请输入控件名，如下命令：\n cczit control [控件名]' : 'Missing control name \n Please enter the control name using the following command: \ncczit control [control name]';
 }
 
+function print_control_information(lang:string, data:any){
+    if (lang === 'zh'){
+        console.log("控件名："+process.argv[3]);
+        console.log("控件作者："+data.author);
+        console.log("此控件有："+data.Release_input+"个发行版");
+        console.log("最新版本是："+data.Current_version);
+    }else{
+        console.log("Control Name："+process.argv[3]);
+        console.log("Control Author："+data.author);
+        console.log("This control has："+data.Release_input+" releases");
+        console.log("The latest version is："+data.Current_version);
+    }
+}
+
 async function fetch_control(lang:string){
     const spinner = fetch_control_loading(lang);
     try{
@@ -54,11 +68,7 @@ async function fetch_control(lang:string){
         try{
             const data = JSON.parse(text);
             spinner.succeed(lang === 'zh' ? '控件信息获取成功' : 'Control information fetched successfully');
-            console.log("以下是他的控件信息:");
-            console.log("控件名："+process.argv[3]);
-            console.log("控件作者："+data.author);
-            console.log("此控件有："+data.Release_input+"个发行版");
-            console.log("最新版本是："+data.Current_version);
+            print_control_information(lang, data);
         }catch(error){
             spinner.fail(lang === 'zh' ? '404 控件不存在' : '404 Control does not exist');
         }
