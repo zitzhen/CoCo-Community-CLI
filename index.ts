@@ -7,6 +7,11 @@ function welcome() {
     return lang === 'zh' ? '欢迎使用CoCo-Community CLI!' : 'Welcome to the CoCo Community CLI!';
 }
 
+function NotFound(){
+    const lang = (process.env.LANG || 'en_US').split('_')[0];
+    return lang === 'zh' ? '这个命令不存在。' : 'This command does not exist.';
+}
+
 function ssl(){
     const url = readline.createInterface({
         input: process.stdin,
@@ -94,7 +99,7 @@ if (process.argv.length > 2) {
     else if (args.includes('ssl')) {
         ssl();
     }else{
-        console.log("这个命令不存在。");
+        console.log(NotFound());
     }
 }else{
     console.log(welcome());
