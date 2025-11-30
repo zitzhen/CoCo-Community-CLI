@@ -91,10 +91,12 @@ if (process.argv.length > 2) {
     if (args.includes('github')) {
         openGitHubRepo();
     }
-    if (args.includes('ssl')) {
+    else if (args.includes('ssl')) {
         ssl();
+    }else{
+        console.log("这个命令不存在。");
     }
+}else{
+    console.log(welcome());
 }
 
-// 使用
-console.log(welcome());
