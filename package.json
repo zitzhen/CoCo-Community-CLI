@@ -5,7 +5,12 @@
     "cczit": "dist/index.js"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zitzhen/CoCo-Community-CLI.git"
   },
   "dependencies": {
     "inquirer": "^13.0.1",
@@ -14,7 +19,9 @@
   "scripts": {
     "start": "ts-node index.ts",
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "publish:github": "npm publish --registry https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
