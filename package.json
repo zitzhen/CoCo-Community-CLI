@@ -1,5 +1,5 @@
 {
-  "name": "CoCo-Community-CLI",
+  "name": "@zitzhen/CoCo-Community-CLI",
   "version": "0.0.1",
   "bin": {
     "cczit": "./dist/index.js"
