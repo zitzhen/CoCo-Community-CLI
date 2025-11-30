@@ -39,11 +39,36 @@ function error_control_input(lang:string){
     return lang === 'zh' ? '缺失控件名 \n 请输入控件名，如下命令：\n cczit control [控件名]' : 'Missing control name \n Please enter the control name using the following command: \ncczit control [control name]';
 }
 
-function fetch_control(lang:string){
+async function fetch_control(lang:string){
+    const spinner = fetch_control_loading(lang);
+    try{
+        const url = `https://cc.zitzhen.cn/control/${process.argv[3]}/information.json`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        //这里先解析文本再尝试解析json，因为服务端容易返回HTTP 200的HTML
+        const text = await response.text();
+        
+        try{
+            const data = JSON.parse(text);
+            spinner.succeed(lang === 'zh' ? '控件信息获取成功' : 'Control information fetched successfully');
+            console.log(data);
+        }catch(error){
+            spinner.fail(lang === 'zh' ? '404 控件不存在' : '404 Control does not exist');
+        }
+
+    }catch(error){
+        spinner.fail(lang === 'zh' ? '获取控件信息失败' : 'Failed to fetch control information.');
+    }
+}
+
+function fetch_control_loading(lang:string){
     if (lang === 'zh'){
-        const spinner = ora('正在处理...').start();
+        return ora('正在处理...').start();
     }else{
-        const spinner = ora('loading...').start();
+        return ora('loading...').start();
     }
 }
 
