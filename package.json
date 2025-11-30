@@ -2,7 +2,7 @@
   "name": "@zitzhen/coco-cli",
   "version": "0.0.1",
   "bin": {
-    "cczit": "./dist/index.js"
+    "cczit": "dist/index.js"
   },
   "publishConfig": {
     "access": "public"
