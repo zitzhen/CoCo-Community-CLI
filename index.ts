@@ -54,13 +54,18 @@ async function fetch_control(lang:string){
         try{
             const data = JSON.parse(text);
             spinner.succeed(lang === 'zh' ? '控件信息获取成功' : 'Control information fetched successfully');
-            console.log(data);
+            console.log("以下是他的控件信息:");
+            console.log("控件名："+process.argv[3]);
+            console.log("控件作者："+data.author);
+            console.log("此控件有："+data.Release_input+"个发行版");
+            console.log("最新版本是："+data.Current_version);
         }catch(error){
             spinner.fail(lang === 'zh' ? '404 控件不存在' : '404 Control does not exist');
         }
 
     }catch(error){
         spinner.fail(lang === 'zh' ? '获取控件信息失败' : 'Failed to fetch control information.');
+        console.error(error);
     }
 }
 
