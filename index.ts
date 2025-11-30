@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { exec } from 'child_process';
 import * as readline from 'readline';
 
