@@ -7,6 +7,27 @@ function welcome() {
     return lang === 'zh' ? '欢迎使用CoCo-Community CLI!' : 'Welcome to the CoCo Community CLI!';
 }
 
+function ssl(){
+    const url = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    url.question('请输入项目路径: ', (projectPath: string) => {
+        console.log(`正在为项目路径 ${projectPath} 生成SSL证书...`);
+        const opensslCommand = `openssl req -x509 -newkey rsa:2048 -keyout coco-community.test-key.pem -out coco-community.test.pem -days 3650 -nodes -subj "/CN=coco-community.test" -addext "subjectAltName=DNS:coco-community.test,DNS:www.coco-community.test,DNS:localhost,IP:127.0.0.1,IP:::1"`;
+        
+        exec(`cd ${projectPath} && ${opensslCommand}`, (error, stdout, stderr) => {
+            if (error) {
+                console.error('生成SSL证书时出错:', error.message);
+                url.close();
+                return;
+            }
+            console.log('SSL证书生成成功!');
+            url.close();
+        });
+    });
+}
+
 function openGitHubRepo() {
     const repos = [
         { id: 1, name: 'CoCo-Community', url: 'https://github.com/zitzhen/CoCo-Community' },
@@ -69,6 +90,10 @@ if (process.argv.length > 2) {
     const args = process.argv.slice(2);
     if (args.includes('github')) {
         openGitHubRepo();
+        process.exit(0);
+    }
+    if (args.includes('ssl')) {
+        ssl();
         process.exit(0);
     }
 }
