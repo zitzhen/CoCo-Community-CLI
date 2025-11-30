@@ -4,6 +4,9 @@
   "bin": {
     "cczit": "./dist/index.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "inquirer": "^13.0.1"
   },
