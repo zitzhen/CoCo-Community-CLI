@@ -1,6 +1,9 @@
 {
   "name": "CoCo-Community-CLI",
   "version": "0.0.1",
+  "bin": {
+    "cczit": "./dist/index.js"
+  },
   "dependencies": {
     "inquirer": "^13.0.1"
   },
