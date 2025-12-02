@@ -14,22 +14,46 @@ function NotFound(lang:string){
     return lang === 'zh' ? '这个命令不存在。' : 'This command does not exist.';
 }
 
+function printssllang(lang:string,id:string){
+    if(lang === 'zh'){
+        if (id ==='1'){
+            return "请输入项目路径: ";
+        } else if (id ==='2'){
+            return "正在为项目路径生成SSL证书...路径：";
+        } else if(id ==='3'){
+            return "生成SSL证书时出错:";
+        } else if (id ==='4'){
+            return "SSL证书生成成功!";
+        }
+    }else{
+        if (id ==='1'){
+            return "Please enter the project path: ";
+        } else if (id ==='2'){
+            return "Generating SSL certificate.. Path: ";
+        } else if(id ==='3'){
+            return "Error generating SSL certificate:";
+        } else if (id ==='4'){
+            return "SSL certificate generated successfully!";
+        }
+    }
+}
+
 function ssl(){
     const url = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
-    url.question('请输入项目路径: ', (projectPath: string) => {
-        console.log(`正在为项目路径 ${projectPath} 生成SSL证书...`);
+    url.question(printssllang(lang,'1')!, (projectPath: string) => {
+        console.log(`${printssllang(lang,'2')}${projectPath}`);
         const opensslCommand = `openssl req -x509 -newkey rsa:2048 -keyout coco-community.test-key.pem -out coco-community.test.pem -days 3650 -nodes -subj "/CN=coco-community.test" -addext "subjectAltName=DNS:coco-community.test,DNS:www.coco-community.test,DNS:localhost,IP:127.0.0.1,IP:::1"`;
         
         exec(`cd ${projectPath} && ${opensslCommand}`, (error, stdout, stderr) => {
             if (error) {
-                console.error('生成SSL证书时出错:', error.message);
+                console.error(`${printssllang(lang,'3')}${error.message}`);
                 url.close();
                 return;
             }
-            console.log('SSL证书生成成功!');
+            console.log(printssllang(lang,'4')!);
             url.close();
         });
     });
