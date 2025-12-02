@@ -14,6 +14,26 @@ function NotFound(lang:string){
     return lang === 'zh' ? '这个命令不存在。' : 'This command does not exist.';
 }
 
+function clone(){
+    const url = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    url.question('请输入项目路径: ', (projectPath: string) => {
+        console.log(`正在克隆项目到 ${projectPath}...`);
+        const cloneCommand = `git clone https://github.com/zitzhen/CoCo-Community.git ${projectPath}`;
+        
+        exec(cloneCommand, (error, stdout, stderr) => {
+            if (error) {
+                console.error('克隆项目时出错:', error.message);
+                url.close();
+                return;
+            }
+            console.log('克隆成功!');
+            url.close();
+        });});
+}
+
 function ssl(){
     const url = readline.createInterface({
         input: process.stdin,
@@ -162,6 +182,8 @@ if (process.argv.length > 2) {
         ssl();
     }else if (args.includes('control')){
         control();
+    }else if (args.includes('clone')){
+        clone();
     }
     else{
         console.log(NotFound(lang));
