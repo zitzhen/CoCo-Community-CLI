@@ -9,7 +9,7 @@
     "url": "https://github.com/zitzhen/CoCo-Community-CLI.git"
   },
   "dependencies": {
-    "inquirer": "^13.0.1",
+    "inquirer": "^13.0.2",
     "ora": "^9.0.0"
   },
   "scripts": {
