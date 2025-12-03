@@ -22,6 +22,8 @@ function cloneprintlang(lang:string,id:number){
             console.log("正在克隆项目...");
         } else if (id === 3){
             console.log("克隆成功!");
+        } else if (id === 4){
+            console.log("错误");
         }
     }else{
         if (id === 1){
@@ -30,6 +32,8 @@ function cloneprintlang(lang:string,id:number){
             console.log("Cloning the project...");
         } else if (id === 3){
             console.log("Clone successful!");
+        } else if (id === 4){
+            console.log("Error");
         }
     }
 }
@@ -45,7 +49,7 @@ function clone(lang:string){
         
         exec(cloneCommand, (error, stdout, stderr) => {
             if (error) {
-                console.error('克隆项目时出错:', error.message);
+                console.error(cloneprintlang(lang,4)!, error.message);
                 url.close();
                 return;
             }
