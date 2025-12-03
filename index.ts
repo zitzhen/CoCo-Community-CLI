@@ -14,13 +14,33 @@ function NotFound(lang:string){
     return lang === 'zh' ? '这个命令不存在。' : 'This command does not exist.';
 }
 
-function clone(){
+function cloneprintlang(lang:string,id:number){
+    if (lang === 'zh'){
+        if (id === 1){
+            console.log("请输入克隆路径...");
+        }else if (id === 2){
+            console.log("正在克隆项目...");
+        } else if (id === 3){
+            console.log("克隆成功!");
+        }
+    }else{
+        if (id === 1){
+            console.log("Please enter the clone path...");
+        }else if (id === 2){
+            console.log("Cloning the project...");
+        } else if (id === 3){
+            console.log("Clone successful!");
+        }
+    }
+}
+
+function clone(lang:string){
     const url = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
-    url.question('请输入项目路径: ', (projectPath: string) => {
-        console.log(`正在克隆项目到 ${projectPath}...`);
+    url.question(cloneprintlang(lang,1)!, (projectPath: string) => {
+        console.log(`${cloneprintlang(lang,2)!} ${projectPath}...`);
         const cloneCommand = `git clone https://github.com/zitzhen/CoCo-Community.git ${projectPath}`;
         
         exec(cloneCommand, (error, stdout, stderr) => {
@@ -29,7 +49,7 @@ function clone(){
                 url.close();
                 return;
             }
-            console.log('克隆成功!');
+            console.log(cloneprintlang(lang,3)!);
             url.close();
         });});
 }
@@ -183,7 +203,7 @@ if (process.argv.length > 2) {
     }else if (args.includes('control')){
         control();
     }else if (args.includes('clone')){
-        clone();
+        clone(lang);
     }
     else{
         console.log(NotFound(lang));
