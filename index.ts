@@ -73,6 +73,10 @@ function Confirm_clone_repository_path(){
   }
 ]).then(answers => {
   console.log('选择了:', answers.Confirm_clone_repository_path);
+  if (answers.Confirm_clone_repository_path === '是'){
+    Select_clone_repository();
+  }
+  
 }).catch(error => {
   console.error('Error:', error);
 })
