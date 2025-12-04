@@ -61,12 +61,12 @@ function print_clonecommand(method:string,repository:string){
 
 }
 
-function run_clone(lang:string,method:string,repository:string){
-    const cloneurl = print_clonecommand(method,repository)! + print_repositoryurl(method);
+function run_clone(lang:string,method:string,repository:string,path:string){
+    const cloneurl = print_clonecommand(method,repository)! + print_repositoryurl(method) + " " +path;
     
 }
 
-function Select_cloning_method(lang:string,repository:string){
+function Select_cloning_method(lang:string,repository:string,path:string){
     inquirer.prompt([
   {
     type: 'rawlist',
@@ -85,7 +85,7 @@ function Select_cloning_method(lang:string,repository:string){
   console.error('Error:', error);
 });};
 
-function Select_clone_repository(lang:string){
+function Select_clone_repository(lang:string,path:string){
 inquirer.prompt([
   {
     type: 'rawlist',
@@ -101,12 +101,12 @@ inquirer.prompt([
 ]).then(answers => {
   console.log('选择了:', answers.repository);
   const repository = answers.repository;
-    Select_cloning_method(lang,repository);
+    Select_cloning_method(lang,repository,path);
 }).catch(error => {
   console.error('Error:', error);
 })};
 
-function Confirm_clone_repository_path(lang:string){
+function Confirm_clone_repository_path(lang:string, path:string){
     inquirer.prompt([
   {
     type: 'rawlist',
@@ -121,7 +121,7 @@ function Confirm_clone_repository_path(lang:string){
 ]).then(answers => {
   console.log('选择了:', answers.Confirm_clone_repository_path);
   if (answers.Confirm_clone_repository_path === '是'){
-    Select_clone_repository(lang);
+    Select_clone_repository(lang,path);
   }
   
 }).catch(error => {
@@ -132,10 +132,11 @@ function Confirm_clone_repository_path(lang:string){
 function clone(lang:string){
     if (process.argv.length === 3){
         console.log("请确认路径为："+process.cwd()+"。");
+        Confirm_clone_repository_path(lang,process.cwd());
     }else {
         console.log("请确认路径为："+process.argv[3]+"。");
+        Confirm_clone_repository_path(lang,process.argv[3]);
     }
-    Confirm_clone_repository_path(lang);
 }
 
 function ssl(){
