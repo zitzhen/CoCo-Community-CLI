@@ -59,6 +59,24 @@ inquirer.prompt([
   console.error('Error:', error);
 })};
 
+function Confirm_clone_repository_path(){
+    inquirer.prompt([
+  {
+    type: 'Confirm_clone_repository_path',
+    name: 'Confirm_clone_repository_path',
+    choices: [
+      { name: 'Yes'},
+      { name: 'No'},
+    ],
+    default: 0
+  }
+]).then(answers => {
+  console.log('选择了:', answers.Confirm_clone_repository_path);
+}).catch(error => {
+  console.error('Error:', error);
+})
+}
+
 function clone(lang:string){
     if (process.argv.length === 3){
         console.log("请确认路径为："+process.cwd()+"。");
