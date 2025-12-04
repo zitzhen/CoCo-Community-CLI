@@ -62,13 +62,9 @@ inquirer.prompt([
 function Confirm_clone_repository_path(){
     inquirer.prompt([
   {
-    type: 'Confirm_clone_repository_path',
+    type: 'rawlist',
     name: 'Confirm_clone_repository_path',
-    choices: [
-      { name: 'Yes'},
-      { name: 'No'},
-    ],
-    default: 0
+    message: '确认克隆路径?'
   }
 ]).then(answers => {
   console.log('选择了:', answers.Confirm_clone_repository_path);
@@ -83,7 +79,7 @@ function clone(lang:string){
     }else {
         console.log("请确认路径为："+process.argv[3]+"。");
     }
-    Select_clone_repository();
+    Confirm_clone_repository_path();
 }
 
 function ssl(){
