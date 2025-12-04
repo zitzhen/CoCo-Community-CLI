@@ -65,6 +65,23 @@ function print_clonecommand(method:string,repository:string){
 function run_clone(lang:string,method:string,repository:string,path:string){
     const cloneurl = print_repositoryurl(method)! + print_clonecommand(method,repository) + " " +path;
     console.log(cloneurl);
+    
+    cloneprintlang(lang, 2); // 正在克隆项目...
+    
+    exec(cloneurl, (error, stdout, stderr) => {
+        if (error) {
+            console.error('Error:', error.message);
+            cloneprintlang(lang, 4); // 错误
+            return;
+        }
+        if (stderr) {
+            console.error('stderr:', stderr);
+            cloneprintlang(lang, 4); // 错误
+            return;
+        }
+        console.log(stdout);
+        cloneprintlang(lang, 3); // 克隆成功!
+    });
 }
 
 function Select_cloning_method(lang:string,repository:string,path:string){
