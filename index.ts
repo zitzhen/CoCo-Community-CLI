@@ -63,7 +63,7 @@ function print_clonecommand(method:string,repository:string){
 }
 
 function run_clone(lang:string,method:string,repository:string,path:string){
-    const cloneurl = print_clonecommand(method,repository)! + print_repositoryurl(method) + " " +path;
+    const cloneurl = print_repositoryurl(method)! + print_clonecommand(method,repository) + " " +path;
     console.log(cloneurl);
 }
 
