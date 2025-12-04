@@ -64,7 +64,12 @@ function Confirm_clone_repository_path(){
   {
     type: 'rawlist',
     name: 'Confirm_clone_repository_path',
-    message: '确认克隆路径?'
+    message: '确认克隆路径?',
+    choices: [
+      { name: '是'},
+      { name: '否'}
+    ],
+    default: 0
   }
 ]).then(answers => {
   console.log('选择了:', answers.Confirm_clone_repository_path);
