@@ -40,22 +40,29 @@ function cloneprintlang(lang:string,id:number){
     }
 }
 
-function run_clone(lang:string,method:string,repository:string){
-    if (repository === 'CoCo-Community'){
-        const repositoryurl = 'zitzhen/CoCo-Community.git';
-    }else if (repository === 'CoCo-Community-Control'){
-        const repositoryurl = 'zitzhen/CoCo-Community-Control.git';
-    }else if (repository === 'CoCo-Community-CLI'){
-        const repositoryurl = 'zitzhen/CoCo-Community-CLI.git';
-    }
+function print_repositoryurl(method:string){
     if (method === 'HTTPS'){
-        const clonecommand = `git clone https://github.com/`
+        return `git clone https://github.com/`
     } else if (method === 'SSH'){
-        const clonecommand = `git clone git @github.com:`
+        return `git clone git @github.com:`
     } else if (method === 'GitHub CLI'){
-        const clonecommand = `gh repo clone `
+        return `gh repo clone `
     }
-    const cloneurl = clonecommand + repositoryurl;
+}
+
+function print_clonecommand(method:string,repository:string){
+    if (repository === 'CoCo-Community'){
+        return 'zitzhen/CoCo-Community.git';
+    }else if (repository === 'CoCo-Community-Control'){
+        return 'zitzhen/CoCo-Community-Control.git';
+    }else if (repository === 'CoCo-Community-CLI'){
+        return 'zitzhen/CoCo-Community-CLI.git';
+    }
+
+}
+
+function run_clone(lang:string,method:string,repository:string){
+    const cloneurl = print_clonecommand(method,repository)! + print_repositoryurl(method);
     
 }
 
