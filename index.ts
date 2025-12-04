@@ -40,6 +40,25 @@ function cloneprintlang(lang:string,id:number){
     }
 }
 
+function Select_cloning_method(){
+    inquirer.prompt([
+  {
+    type: 'rawlist',
+    name: 'cloning_method',
+    message: 'Select a cloning method:',
+    choices: [
+      { name: 'HTTPS'},
+      { name: 'SSH'},
+      { name: 'GitHub CLI'}
+    ],
+    default: 0
+  }
+]).then(answers => {
+  console.log('选择了:', answers.cloning_method);
+}).catch(error => {
+  console.error('Error:', error);
+});};
+
 function Select_clone_repository(){
 inquirer.prompt([
   {
