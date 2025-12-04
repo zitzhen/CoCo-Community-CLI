@@ -4,6 +4,7 @@ import * as readline from 'readline';
 import ora from 'ora';
 import inquirer from 'inquirer';
 import { error } from 'console';
+import { METHODS } from 'http';
 
 const lang = (process.env.LANG || 'en_US').split('_')[0];
 
@@ -63,7 +64,7 @@ function print_clonecommand(method:string,repository:string){
 
 function run_clone(lang:string,method:string,repository:string,path:string){
     const cloneurl = print_clonecommand(method,repository)! + print_repositoryurl(method) + " " +path;
-    
+    console.log(cloneurl);
 }
 
 function Select_cloning_method(lang:string,repository:string,path:string){
@@ -81,6 +82,8 @@ function Select_cloning_method(lang:string,repository:string,path:string){
   }
 ]).then(answers => {
   console.log('选择了:', answers.cloning_method);
+  const method = answers.cloning_method;
+  run_clone(lang,method,repository,path);
 }).catch(error => {
   console.error('Error:', error);
 });};
