@@ -2,6 +2,8 @@
 import { exec } from 'child_process';
 import * as readline from 'readline';
 import ora from 'ora';
+import inquirer from 'inquirer';
+import { error } from 'console';
 
 const lang = (process.env.LANG || 'en_US').split('_')[0];
 
@@ -38,24 +40,32 @@ function cloneprintlang(lang:string,id:number){
     }
 }
 
+function Select_clone_repository(){
+inquirer.prompt([
+  {
+    type: 'rawlist',
+    name: 'repository',
+    message: 'Select a repository:',
+    choices: [
+      { name: 'CoCo-Community'},
+      { name: 'CoCo-Community-Control'},
+      { name: 'CoCo-Community-CLI'}
+    ],
+    default: 0
+  }
+]).then(answers => {
+  console.log('选择了:', answers.repository);
+}).catch(error => {
+  console.error('Error:', error);
+})};
+
 function clone(lang:string){
-    const url = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-    url.question(cloneprintlang(lang,1)!, (projectPath: string) => {
-        console.log(`${cloneprintlang(lang,2)!} ${projectPath}...`);
-        const cloneCommand = `git clone https://github.com/zitzhen/CoCo-Community.git ${projectPath}`;
-        
-        exec(cloneCommand, (error, stdout, stderr) => {
-            if (error) {
-                console.error(cloneprintlang(lang,4)!, error.message);
-                url.close();
-                return;
-            }
-            console.log(cloneprintlang(lang,3)!);
-            url.close();
-        });});
+    if (process.argv.length === 3){
+        console.log("请确认路径为："+process.cwd()+"。");
+    }else {
+        console.log("请确认路径为："+process.argv[3]+"。");
+    }
+    Select_clone_repository();
 }
 
 function ssl(){
