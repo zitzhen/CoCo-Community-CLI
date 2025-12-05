@@ -10,7 +10,7 @@ const lang = (process.env.LANG || 'en_US').split('_')[0];
 
 function search(){
     if (process.argv.length > 3){
-        console.log("测试通过");
+        const tip = ora('正在搜索...').start();
     }else{
         console.error("缺失搜索关键词 \n 请输入搜索关键词，如下命令：\n cczit search [关键词]");
     }
