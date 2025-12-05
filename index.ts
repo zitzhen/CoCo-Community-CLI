@@ -98,7 +98,6 @@ function Select_cloning_method(lang:string,repository:string,path:string){
     default: 0
   }
 ]).then(answers => {
-  console.log('选择了:', answers.cloning_method);
   const method = answers.cloning_method;
   run_clone(lang,method,repository,path);
 }).catch(error => {
@@ -119,7 +118,6 @@ inquirer.prompt([
     default: 0
   }
 ]).then(answers => {
-  console.log('选择了:', answers.repository);
   const repository = answers.repository;
     Select_cloning_method(lang,repository,path);
 }).catch(error => {
@@ -131,10 +129,10 @@ function Confirm_clone_repository_path(lang:string, path:string){
   {
     type: 'rawlist',
     name: 'Confirm_clone_repository_path',
-    message: '确认克隆路径?',
+    message: lang === 'zh' ? '确认克隆路径?' : 'Confirm clone path?',
     choices: [
-      { name: '是'},
-      { name: '否'}
+      { name: lang === 'zh' ? '是' : 'Yes'},
+      { name: lang === 'zh' ? '否' : 'No'}
     ],
     default: 0
   }
@@ -151,10 +149,10 @@ function Confirm_clone_repository_path(lang:string, path:string){
 
 function clone(lang:string){
     if (process.argv.length === 3){
-        console.log("请确认路径为："+process.cwd()+"。");
+        console.log(lang === 'zh' ? "请确认路径为："+process.cwd()+"。" : "Please confirm the path is: "+process.cwd()+".");
         Confirm_clone_repository_path(lang,process.cwd());
     }else {
-        console.log("请确认路径为："+process.argv[3]+"。");
+        console.log(lang === 'zh' ? "请确认路径为："+process.argv[3]+"。" : "Please confirm the path is: "+process.argv[3]+".");
         Confirm_clone_repository_path(lang,process.argv[3]);
     }
 }
