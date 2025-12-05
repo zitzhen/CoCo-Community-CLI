@@ -45,7 +45,7 @@ function print_repositoryurl(method:string){
     if (method === 'HTTPS'){
         return `git clone https://github.com/`
     } else if (method === 'SSH'){
-        return `git clone git @github.com:`
+        return `git clone @github.com:`
     } else if (method === 'GitHub CLI'){
         return `gh repo clone `
     }
