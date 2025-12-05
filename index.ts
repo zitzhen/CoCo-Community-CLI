@@ -10,9 +10,11 @@ const lang = (process.env.LANG || 'en_US').split('_')[0];
 
 async function search(){
     if (process.argv.length > 3){
-        const tip = ora('正在搜索...').start();
+        const tip = ora(lang === 'zh' ? '正在搜索...' : 'Searching...').start();
         try{
-            // 搜索控件
+            let allControls = [];
+            
+            // 尝试从网络获取数据
             try{
                 const url = `https://cc.zitzhen.cn/control/list.json`;
                 const response = await fetch(url);
@@ -20,12 +22,42 @@ async function search(){
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                const allControls = data.list || [];
+                allControls = data.list || [];
             }catch(error){
-                
+
             }
+            
+            // 获取搜索关键词
+            const searchKeyword = process.argv[3].toLowerCase();
+            
+            // 过滤控件数据
+            const filteredControls = allControls.filter(control => 
+                control.name.toLowerCase().includes(searchKeyword) || 
+                control.author.toLowerCase().includes(searchKeyword)
+            );
+            
+            tip.succeed(`${lang === 'zh' ? '找到' : 'Found'} ${filteredControls.length} ${lang === 'zh' ? '个匹配的控件' : 'matching controls'}`);
+            
+            // 展示搜索结果
+            if (filteredControls.length > 0) {
+                console.log(`\n${lang === 'zh' ? '搜索结果:' : 'Search Results:'}`);
+                console.log('==========');
+                filteredControls.forEach((control, index) => {
+                    console.log(`${index + 1}. ${control.name}`);
+                    console.log(`   ${lang === 'zh' ? '作者:' : 'Author:'} ${control.author}`);
+                    console.log(`   ${lang === 'zh' ? '大小:' : 'Size:'} ${control.size}`);
+                    console.log(`   ${lang === 'zh' ? '下载量:' : 'Downloads:'} ${control.downloads}`);
+                    console.log(`   ${lang === 'zh' ? '点赞数:' : 'Likes:'} ${control.likes}`);
+                    console.log(`   ${lang === 'zh' ? '收藏数:' : 'Collections:'} ${control.collections}`);
+                    console.log(`   ${lang === 'zh' ? '浏览量:' : 'Pageviews:'} ${control.Pageviews}`);
+                    console.log('----------');
+                });
+            } else {
+                console.log(lang === 'zh' ? '未找到匹配的控件' : 'No matching controls found');
+            }
+            
         }catch(error){
-            tip.fail('搜索失败');
+            tip.fail(lang === 'zh' ? '搜索失败' : 'Search failed');
             console.error(error);
         }
     }else{
