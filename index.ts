@@ -8,9 +8,26 @@ import { METHODS } from 'http';
 
 const lang = (process.env.LANG || 'en_US').split('_')[0];
 
-function search(){
+async function search(){
     if (process.argv.length > 3){
         const tip = ora('正在搜索...').start();
+        try{
+            // 搜索控件
+            try{
+                const url = `https://cc.zitzhen.cn/control/list.json`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                const allControls = data.list || [];
+            }catch(error){
+                
+            }
+        }catch(error){
+            tip.fail('搜索失败');
+            console.error(error);
+        }
     }else{
         console.error("缺失搜索关键词 \n 请输入搜索关键词，如下命令：\n cczit search [关键词]");
     }
