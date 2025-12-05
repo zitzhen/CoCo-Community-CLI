@@ -8,6 +8,16 @@ import { METHODS } from 'http';
 
 const lang = (process.env.LANG || 'en_US').split('_')[0];
 
+function search(){
+    if (process.argv.length > 3){
+        console.log("测试通过");
+    }else{
+        console.error("缺失搜索关键词 \n 请输入搜索关键词，如下命令：\n cczit search [关键词]");
+    }
+}
+
+
+
 function welcome(lang:string) {
     
     return lang === 'zh' ? '欢迎使用CoCo-Community CLI!' : 'Welcome to the CoCo Community CLI!';
@@ -331,6 +341,8 @@ if (process.argv.length > 2) {
         control();
     }else if (args.includes('clone')){
         clone(lang);
+    }else if (args.includes('search')){
+        search();
     }
     else{
         console.log(NotFound(lang));
