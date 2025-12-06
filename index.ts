@@ -52,10 +52,11 @@ async function search(){
                     console.log(`   ${lang === 'zh' ? '浏览量:' : 'Pageviews:'} ${control.Pageviews}`);
                     console.log('----------');
                 });
+
             } else {
                 console.log(lang === 'zh' ? '未找到匹配的控件' : 'No matching controls found');
             }
-            
+            tip.stop();
         }catch(error){
             tip.fail(lang === 'zh' ? '搜索失败' : 'Search failed');
             console.error(error);
