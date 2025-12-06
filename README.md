@@ -11,3 +11,12 @@ npm install -g @zitzhen/coco-cli
 ```bash
 npm update -g @zitzhen/coco-cli
 ```
+
+## 命令指引
+|名称|功能|
+|---|---|
+|ssl|为项目生成SSL证书|
+|control|查询控件信息|
+|search|搜索控件|
+|clone|克隆项目|
+|github|查看仓库URL与打开项目|
