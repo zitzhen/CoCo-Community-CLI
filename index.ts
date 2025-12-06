@@ -21,7 +21,7 @@ async function search(){
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                const data = await response.json();
+                const data:any = await response.json();
                 allControls = data.list || [];
             }catch(error){
 
@@ -31,7 +31,7 @@ async function search(){
             const searchKeyword = process.argv[3].toLowerCase();
             
             // 过滤控件数据
-            const filteredControls = allControls.filter(control => 
+            const filteredControls = allControls.filter((control:any) => 
                 control.name.toLowerCase().includes(searchKeyword) || 
                 control.author.toLowerCase().includes(searchKeyword)
             );
@@ -42,7 +42,7 @@ async function search(){
             if (filteredControls.length > 0) {
                 console.log(`\n${lang === 'zh' ? '搜索结果:' : 'Search Results:'}`);
                 console.log('==========');
-                filteredControls.forEach((control, index) => {
+                filteredControls.forEach((control:any, index:any) => {
                     console.log(`${index + 1}. ${control.name}`);
                     console.log(`   ${lang === 'zh' ? '作者:' : 'Author:'} ${control.author}`);
                     console.log(`   ${lang === 'zh' ? '大小:' : 'Size:'} ${control.size}`);
