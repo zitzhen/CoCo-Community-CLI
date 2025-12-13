@@ -15,10 +15,9 @@ apps:
 
 parts:
   coco-cli:
-    plugin: nodejs
+    plugin: npm
     source: .
-    nodejs-version: "20"
-    npm-include-node: true
+    npm-node-version: "20"
 
     override-build: |
       npm install
