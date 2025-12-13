@@ -1,0 +1,27 @@
+name: coco-cli
+base: core22
+version: '0.1.4'
+summary: CoCo Community CLI
+description: |
+  CoCo Community command line interface.
+  Published as @zitzhen/coco-cli on npm.
+
+grade: stable
+confinement: classic
+
+apps:
+  cczit:
+    command: dist/index.js
+
+parts:
+  coco-cli:
+    plugin: nodejs
+    source: .
+    nodejs-version: "20"
+    npm-include-node: true
+
+    override-build: |
+      npm install
+      npm run build
+      chmod +x dist/index.js
+      snapcraftctl build
